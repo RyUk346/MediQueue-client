@@ -60,7 +60,7 @@ const TutorCard = ({ tutor }) => {
 
         <Link
           href={`/tutors/${tutor._id}`}
-          className="mt-auto inline-flex justify-center rounded-md bg-teal-600 px-4 py-3 font-semibold text-white hover:bg-teal-700"
+          className="mt-4 inline-flex justify-center rounded-md bg-teal-600 px-4 py-3 font-semibold text-white hover:bg-teal-700"
         >
           Book Session
         </Link>

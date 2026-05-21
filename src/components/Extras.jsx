@@ -62,7 +62,7 @@ const HomeExtras = () => {
               {
                 icon: <FiShield />,
                 title: "Slot Protection",
-                text: "Booking count updates after every confirmed session.",
+                text: "Book your slot with confidence before it's taken, knowing it's reserved for you.",
               },
               {
                 icon: <FiMonitor />,

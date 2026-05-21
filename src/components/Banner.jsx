@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -56,9 +57,9 @@ const Banner = () => {
       initial={{ opacity: 0, y: 35 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
-      className="mx-auto max-w-7xl px-4 pt-8"
+      className="mx-auto px-4 pt-8"
     >
-      <div className="relative h-[520px] overflow-hidden rounded-lg">
+      <div className="relative h-[80vh] overflow-hidden rounded-lg">
         {slides.map((slide, index) => (
           <div
             key={slide.title}
@@ -66,16 +67,18 @@ const Banner = () => {
               index === activeSlide ? "opacity-100" : "opacity-0"
             }`}
           >
-            <img
+            <Image
               src={slide.image}
               alt={slide.title}
+              width={400}
+              height={300}
               className="h-full w-full object-cover"
             />
 
             <div className="absolute inset-0 bg-slate-950/60" />
 
-            <div className="absolute inset-0 flex items-center">
-              <div className="max-w-3xl px-8 text-white md:px-14">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="max-w-3/5 px-8 text-white md:px-14">
                 <h1 className="text-4xl font-bold md:text-6xl">
                   {slide.title}
                 </h1>
