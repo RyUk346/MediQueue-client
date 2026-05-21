@@ -40,18 +40,19 @@ const TutorDetailsPage = async ({ params }) => {
 
   return (
     <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[1fr_380px]">
-      <div>
+      <div className="animate-[fadeSlideLeft_0.6s_ease-out]">
         <div className="relative h-96 w-full overflow-hidden rounded-lg">
           <Image
             src={tutor.photo}
             alt={tutor.tutorName}
             fill
+            unoptimized
             sizes="(max-width: 1024px) 100vw, 70vw"
             className="object-cover"
           />
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 animate-[fadeSlideUp_0.7s_ease-out]">
           <p className="font-semibold text-teal-600">{tutor.subject}</p>
 
           <h1 className="text-4xl font-bold">{tutor.tutorName}</h1>
@@ -78,7 +79,7 @@ const TutorDetailsPage = async ({ params }) => {
             <h2 className="text-2xl font-bold">Tutor Profile</h2>
 
             <p className="mt-3 text-slate-600 dark:text-slate-300">
-              {tutor.bio}
+              {tutor.bio || tutor.description}
             </p>
 
             <p className="mt-4">
@@ -100,7 +101,9 @@ const TutorDetailsPage = async ({ params }) => {
         </div>
       </div>
 
-      <BookingForm tutor={tutor} user={session.user} token={token} />
+      <aside className="animate-[fadeSlideRight_0.6s_ease-out]">
+        <BookingForm tutor={tutor} user={session.user} token={token} />
+      </aside>
     </section>
   );
 };
