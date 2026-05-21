@@ -9,6 +9,14 @@ const BookingForm = ({ tutor, user, token }) => {
   const [open, setOpen] = useState(false);
   const noSlot = Number(tutor.totalSlot) <= 0;
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const sessionDate = new Date(tutor.sessionStartDate);
+  sessionDate.setHours(0, 0, 0, 0);
+
+  const bookingNotOpen = today < sessionDate;
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,6 +61,10 @@ const BookingForm = ({ tutor, user, token }) => {
           <p className="mt-3 rounded-md bg-rose-50 p-3 text-sm text-rose-700">
             No available slots left.
           </p>
+        ) : bookingNotOpen ? (
+          <p className="mt-3 rounded-md bg-amber-50 p-3 text-sm text-amber-700">
+            Booking is not available yet for this tutor
+          </p>
         ) : (
           <p className="mt-3 text-slate-600 dark:text-slate-300">
             Open the booking form and confirm your learning session.
@@ -61,7 +73,7 @@ const BookingForm = ({ tutor, user, token }) => {
 
         <button
           type="button"
-          disabled={noSlot}
+          disabled={noSlot || bookingNotOpen}
           onClick={() => setOpen(true)}
           className="mt-5 w-full rounded-md bg-teal-600 px-5 py-3 font-bold text-white hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400"
         >

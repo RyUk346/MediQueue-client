@@ -6,6 +6,16 @@ import Link from "next/link";
 import { FiCalendar, FiMapPin, FiMonitor, FiUsers } from "react-icons/fi";
 
 const TutorCard = ({ tutor }) => {
+  const noSlot = Number(tutor.totalSlot) <= 0;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const sessionDate = new Date(tutor.sessionStartDate);
+  sessionDate.setHours(0, 0, 0, 0);
+
+  const bookingNotOpen = today < sessionDate;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 28 }}
@@ -55,15 +65,17 @@ const TutorCard = ({ tutor }) => {
 
           <p className="flex items-center gap-2">
             <FiUsers />{" "}
-            {Number(tutor.totalSlot) === 0
-              ? "No slots left"
-              : `${tutor.totalSlot} slots left`}
+            {noSlot ? "No slots left" : `${tutor.totalSlot} slots left`}
           </p>
         </div>
 
-        {Number(tutor.totalSlot) === 0 ? (
-          <div className="mt-4 rounded-md bg-rose-50 px-4 py-3 text-center font-semibold text-rose-700">
+        {noSlot ? (
+          <div className="mt-auto rounded-md bg-rose-50 px-4 py-3 text-center font-semibold text-rose-700">
             No available slots left.
+          </div>
+        ) : bookingNotOpen ? (
+          <div className="mt-auto rounded-md bg-amber-50 px-4 py-3 text-center font-semibold text-amber-700">
+            Booking is not started yet for this tutor
           </div>
         ) : (
           <Link
