@@ -1,17 +1,28 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FiCalendar, FiMapPin, FiMonitor, FiUsers } from "react-icons/fi";
 
 const TutorCard = ({ tutor }) => {
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-      <div className="relative h-56 w-full">
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.45 }}
+      className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+    >
+      <div className="relative h-56 w-full overflow-hidden">
         <Image
           src={tutor.photo}
           alt={tutor.tutorName}
           fill
+          unoptimized
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover"
+          className="object-cover transition duration-500 hover:scale-105"
         />
       </div>
 
@@ -54,7 +65,7 @@ const TutorCard = ({ tutor }) => {
           Book Session
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 };
 
