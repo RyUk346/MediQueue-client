@@ -54,16 +54,25 @@ const TutorCard = ({ tutor }) => {
           </p>
 
           <p className="flex items-center gap-2">
-            <FiUsers /> {tutor.totalSlot} slots left
+            <FiUsers />{" "}
+            {Number(tutor.totalSlot) === 0
+              ? "No slots left"
+              : `${tutor.totalSlot} slots left`}
           </p>
         </div>
 
-        <Link
-          href={`/tutors/${tutor._id}`}
-          className="mt-4 inline-flex justify-center rounded-md bg-teal-600 px-4 py-3 font-semibold text-white hover:bg-teal-700"
-        >
-          Book Session
-        </Link>
+        {Number(tutor.totalSlot) === 0 ? (
+          <div className="mt-4 rounded-md bg-rose-50 px-4 py-3 text-center font-semibold text-rose-700">
+            No available slots left.
+          </div>
+        ) : (
+          <Link
+            href={`/tutors/${tutor._id}`}
+            className="mt-4 inline-flex justify-center rounded-md bg-teal-600 px-4 py-3 font-semibold text-white hover:bg-teal-700"
+          >
+            Book Session
+          </Link>
+        )}
       </div>
     </motion.article>
   );

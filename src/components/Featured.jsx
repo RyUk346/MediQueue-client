@@ -45,7 +45,7 @@ const Featured = () => {
         <div>
           <h2 className="text-3xl font-bold">Available Tutors</h2>
           <p className="mt-2 text-slate-600 dark:text-slate-300">
-            Six recent tutors ready for focused learning sessions.
+            Login to see all tutors
           </p>
         </div>
 
