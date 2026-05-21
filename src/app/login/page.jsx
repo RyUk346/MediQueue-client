@@ -2,12 +2,11 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackURL = searchParams.get("callbackURL") || "/";
 
@@ -24,7 +23,7 @@ const LoginPage = () => {
 
     if (data) {
       toast.success("Welcome back");
-      router.push(callbackURL);
+      window.location.href = callbackURL;
     }
 
     if (error) {
