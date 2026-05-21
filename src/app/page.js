@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import HomeExtras from "@/components/Extras";
 import Featured from "@/components/Featured";
 
 export const metadata = {
@@ -10,6 +11,7 @@ export default function Home() {
     <div>
       <Banner />
       <Featured />
+      <HomeExtras />
     </div>
   );
 }

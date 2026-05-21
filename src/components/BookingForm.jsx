@@ -16,6 +16,7 @@ const BookingForm = ({ tutor, user, token }) => {
       ...Object.fromEntries(new FormData(e.currentTarget).entries()),
       tutorId: tutor._id,
       tutorName: tutor.tutorName,
+      subject: tutor.subject,
       studentEmail: user.email,
     };
 
@@ -90,7 +91,9 @@ const BookingForm = ({ tutor, user, token }) => {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-semibold">Phone</label>
+                <label className="mb-1 block text-sm font-semibold">
+                  Phone
+                </label>
                 <input name="phone" required className="input" />
               </div>
 

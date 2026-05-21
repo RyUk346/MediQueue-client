@@ -3,9 +3,10 @@
 import WarningModal from "@/components/WarningModal";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FiX } from "react-icons/fi";
 
 const BookedSessionsTable = ({ bookings, token }) => {
-  const [items, setItems] = useState(bookings || []);
+  const [items, setItems] = useState(Array.isArray(bookings) ? bookings : []);
   const [cancelTarget, setCancelTarget] = useState(null);
 
   const cancelBooking = async () => {
@@ -59,14 +60,15 @@ const BookedSessionsTable = ({ bookings, token }) => {
   return (
     <>
       <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-        <table className="w-full min-w-[780px] text-left text-sm">
+        <table className="w-full min-w-[900px] text-left text-sm">
           <thead className="bg-slate-100 dark:bg-slate-800">
             <tr>
+              <th className="p-4">Subject Name</th>
+              <th className="p-4">Phone</th>
               <th className="p-4">Tutor Name</th>
-              <th className="p-4">Student Name</th>
               <th className="p-4">Email</th>
               <th className="p-4">Status</th>
-              <th className="p-4">Action</th>
+              <th className="p-4">Cancel</th>
             </tr>
           </thead>
 
@@ -76,17 +78,36 @@ const BookedSessionsTable = ({ bookings, token }) => {
                 key={booking._id}
                 className="border-t border-slate-200 dark:border-slate-800"
               >
-                <td className="p-4 font-semibold">{booking.tutorName}</td>
-                <td className="p-4">{booking.studentName}</td>
+                <td className="p-4 font-semibold">
+                  {booking.subject || booking.subjectName || "N/A"}
+                </td>
+
+                <td className="p-4">{booking.phone || "N/A"}</td>
+
+                <td className="p-4">{booking.tutorName}</td>
+
                 <td className="p-4">{booking.studentEmail}</td>
-                <td className="p-4 capitalize">{booking.status}</td>
+
+                <td className="p-4">
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-bold capitalize ${
+                      booking.status === "cancelled"
+                        ? "bg-rose-50 text-rose-700"
+                        : "bg-emerald-50 text-emerald-700"
+                    }`}
+                  >
+                    {booking.status === "cancelled" ? "Cancelled" : "Confirmed"}
+                  </span>
+                </td>
+
                 <td className="p-4">
                   <button
                     disabled={booking.status === "cancelled"}
                     onClick={() => setCancelTarget(booking)}
-                    className="rounded-md bg-rose-600 px-3 py-2 font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+                    className="grid h-9 w-9 place-items-center rounded-full bg-rose-600 text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:bg-slate-400"
+                    title="Cancel booking"
                   >
-                    Cancel
+                    <FiX size={20} />
                   </button>
                 </td>
               </tr>

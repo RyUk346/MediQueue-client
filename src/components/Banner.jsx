@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -51,7 +52,12 @@ const Banner = () => {
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pt-8">
+    <motion.section
+      initial={{ opacity: 0, y: 35 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className="mx-auto max-w-7xl px-4 pt-8"
+    >
       <div className="relative h-[520px] overflow-hidden rounded-lg">
         {slides.map((slide, index) => (
           <div
@@ -118,7 +124,7 @@ const Banner = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

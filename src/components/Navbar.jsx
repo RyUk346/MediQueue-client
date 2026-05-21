@@ -25,7 +25,7 @@ const navLinks = [
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
   const [theme, setTheme] = useState("light");
@@ -61,6 +61,71 @@ const Navbar = () => {
         ? "bg-teal-600 text-white shadow-sm"
         : "text-slate-700 hover:bg-teal-50 hover:text-teal-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-teal-300"
     }`;
+
+  const profileLoading = (
+    <div className="flex items-center gap-2">
+      <div className="h-9 w-9 animate-pulse rounded-full bg-slate-200 dark:bg-slate-700" />
+      <div className="hidden h-4 w-20 animate-pulse rounded bg-slate-200 dark:bg-slate-700 sm:block" />
+    </div>
+  );
+
+  const authArea = isPending ? (
+    profileLoading
+  ) : user ? (
+    <div className="relative">
+      <button
+        onClick={() => setProfileOpen(!profileOpen)}
+        className="flex items-center gap-2 rounded-full border border-slate-200 p-1 pr-3 dark:border-slate-700"
+      >
+        <Avatar>
+          <Avatar.Image
+            src={user.image || "https://i.ibb.co.com/0jHc7nX/user.png"}
+            alt={user.name || "User"}
+            referrerPolicy="no-referrer"
+            className="h-8 w-8 rounded-full"
+          />
+          <Avatar.Fallback>{user.name?.charAt(0) || "U"}</Avatar.Fallback>
+        </Avatar>
+        <FiChevronDown />
+      </button>
+
+      {profileOpen && (
+        <div className="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900">
+          <p className="font-semibold">{user.name}</p>
+          <p className="mb-3 break-all text-xs text-slate-500">{user.email}</p>
+
+          <Link
+            href="/profile"
+            onClick={() => setProfileOpen(false)}
+            className="block rounded-md px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
+          >
+            Profile
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950"
+          >
+            <FiLogOut />
+            Logout
+          </button>
+        </div>
+      )}
+    </div>
+  ) : (
+    <div className="hidden items-center gap-2 sm:flex">
+      <Link href="/login" className={navLinkClass("/login")}>
+        Login
+      </Link>
+
+      <Link
+        href="/signup"
+        className="rounded-md bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
+      >
+        Register
+      </Link>
+    </div>
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
@@ -107,67 +172,7 @@ const Navbar = () => {
               {theme === "dark" ? <FiSun /> : <FiMoon />}
             </Button>
 
-            {user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 rounded-full border border-slate-200 p-1 pr-3 dark:border-slate-700"
-                >
-                  <Avatar>
-                    <Avatar.Image
-                      src={
-                        user.image || "https://i.ibb.co.com/0jHc7nX/user.png"
-                      }
-                      alt={user.name || "User"}
-                      referrerPolicy="no-referrer"
-                      className="h-8 w-8 rounded-full"
-                    />
-                    <Avatar.Fallback>
-                      {user.name?.charAt(0) || "U"}
-                    </Avatar.Fallback>
-                  </Avatar>
-                  <FiChevronDown />
-                </button>
-
-                {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded-lg border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900">
-                    <p className="font-semibold">{user.name}</p>
-                    <p className="mb-3 break-all text-xs text-slate-500">
-                      {user.email}
-                    </p>
-
-                    <Link
-                      href="/profile"
-                      onClick={() => setProfileOpen(false)}
-                      className="block rounded-md px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    >
-                      Profile
-                    </Link>
-
-                    <button
-                      onClick={handleLogout}
-                      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950"
-                    >
-                      <FiLogOut />
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="hidden items-center gap-2 sm:flex">
-                <Link href="/login" className={navLinkClass("/login")}>
-                  Login
-                </Link>
-
-                <Link
-                  href="/signup"
-                  className="rounded-md bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
+            {authArea}
           </div>
         </div>
 
@@ -184,7 +189,12 @@ const Navbar = () => {
               </Link>
             ))}
 
-            {!user && (
+            {isPending ? (
+              <div className="flex items-center gap-2 px-3 py-3">
+                <div className="h-8 w-8 animate-pulse rounded-full bg-slate-200 dark:bg-slate-700" />
+                <div className="h-4 w-24 animate-pulse rounded bg-slate-200 dark:bg-slate-700" />
+              </div>
+            ) : !user ? (
               <>
                 <Link
                   href="/login"
@@ -202,7 +212,7 @@ const Navbar = () => {
                   Register
                 </Link>
               </>
-            )}
+            ) : null}
           </div>
         )}
       </nav>
