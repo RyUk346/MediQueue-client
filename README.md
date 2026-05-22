@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MediQueue - Tutor Booking System
 
-## Getting Started
+Live Site URL: https://mediqueue-client-one.vercel.app
 
-First, run the development server:
+MediQueue is a tutor booking web application where students can register, log in, browse available tutors, and book online learning sessions based on subject and time availability. The system generates digital session tokens for each booking and allows users to manage their scheduled classes efficiently.
+The platform focuses on simplifying the tutor booking process by eliminating manual scheduling, preventing time slot conflicts, and ensuring a smooth and organized learning experience for students.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Website Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Students can register, log in, and access private routes using authentication.
+- Users can browse all available tutors and view detailed tutor information.
+- Logged-in users can book tutor sessions with automatic slot checking.
+- Each user can manage their own added tutors from the My Tutors page.
+- Users can view and cancel their booked sessions from the My Booked Sessions page.
+- Tutor booking is blocked when no slots are available or when the session date is not open yet.
+- Search and filter options are available on the Tutors page.
+- The website supports dark and light theme toggling.
+- Responsive design works smoothly on mobile, tablet, and desktop devices.
+- Toast notifications are used for success, error, update, delete, and booking actions.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js**
+- **React.js**
+- **Tailwind CSS**
+- **Better Auth**
+- **MongoDB**
+- **Express.js**
+- **JWT**
+- **Vercel**
 
-## Learn More
+## Installed Packages
 
-To learn more about Next.js, take a look at the following resources:
+- **tailwindcss**
+- **@heroui/react**
+- **react-hot-toast**
+- **react-icons**
+- **framer-motion**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **cors**
+- **dotenv**
+- **jose-cjs**
+- **nodemon**
