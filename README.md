@@ -1,6 +1,6 @@
 # MediQueue - Tutor Booking System
 
-Live Site URL: https://mediqueue-client-one.vercel.app
+Live Site URL: https://mediqueue-client-orcin.vercel.app/
 
 MediQueue is a tutor booking web application where students can register, log in, browse available tutors, and book online learning sessions based on subject and time availability. The system generates digital session tokens for each booking and allows users to manage their scheduled classes efficiently.
 The platform focuses on simplifying the tutor booking process by eliminating manual scheduling, preventing time slot conflicts, and ensuring a smooth and organized learning experience for students.
