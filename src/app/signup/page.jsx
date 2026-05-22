@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const SignUpPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const validatePassword = (password) => {
@@ -89,13 +92,30 @@ const SignUpPage = () => {
             className="input"
           />
 
-          <input
-            name="password"
-            type="password"
-            required
-            placeholder="Password"
-            className="input"
-          />
+          <div>
+            <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Password
+            </label>
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Create a strong password"
+                required
+                className="input pr-12"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-teal-600"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </button>
+            </div>
+          </div>
 
           <p className="text-xs text-slate-500">
             Use at least 6 characters with uppercase and lowercase letters.

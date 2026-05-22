@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const searchParams = useSearchParams();
   const callbackURL = searchParams.get("callbackURL") || "/";
 
@@ -56,20 +59,35 @@ const LoginPage = () => {
             className="input"
           />
 
-          <input
-            name="password"
-            type="password"
-            required
-            placeholder="Password"
-            className="input"
-          />
+          <div>
+            <label className="mb-1 block text-sm font-semibold text-slate-700 dark:text-slate-200">
+              Password
+            </label>
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                required
+                className="input pr-12"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-teal-600"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </button>
+            </div>
+          </div>
 
           <button className="rounded-md bg-teal-600 px-5 py-3 font-bold text-white hover:bg-teal-700">
             Login
           </button>
         </form>
-
-        <p className="mt-3 text-sm text-slate-500">Forget Password</p>
 
         <button
           onClick={handleGoogleSignin}
